@@ -121,7 +121,7 @@ table {
   margin-top: 32px;
   min-width: 600px;
   border: none;
-  border-spacing: 0;
+  border-spacing: 0px;
   border: 4px solid #d1d5db;
   padding: 16px;
   border-radius: 16px;
@@ -189,12 +189,43 @@ tbody tr td {
 
 thead tr th:first-child,
 tbody tr td:first-child {
-  width: 6em;
-  min-width: 6em;
-  max-width: 6em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0 8px;
+  padding: .75em;
+    vertical-align: top;
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+
+.table td, .table th{
+  padding: .75em;
+  vertical-align: top;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.table td > a.btn{
+  padding: .3em 1em;
+  font-size: 1.1em;
+  margin: 0 .2em;
+}
+
+@media only screen and (max-width: 1024px){
+    table, thead, tbody, th, td, tr{
+        display: block;
+    }
+
+    thead tr{
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr { border: 1px solid var(--border);}
+
+    td{
+        border: none;
+        position: relative;
+    }
+
 }
 
 .profile {
@@ -247,4 +278,35 @@ ul.messages * {
 }
 .messages .info {
   background-color: #93c5fd;
+}
+
+#update_user .form-group .btn
+{
+    width: 100%;
+    padding: .9em 1em;
+    background-color:#16db93; 
+    border: none;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: .2em;
+    margin: .5em 0;
+}
+
+#update_user .form-group .btn:hover
+{
+    background-color: var(--dark);
+    color: var(--border);
+}
+
+.border-shadow{
+  border: 1px solid var(--border-btn);
+  box-shadow: 1px 3px 10px #080808;
+}
+
+.text-gradient{
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

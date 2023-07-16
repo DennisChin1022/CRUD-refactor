@@ -1,0 +1,46 @@
+<%- include ('layouts/header') %>
+<h1 class="table">Manage Users</h1>
+
+<table class="table">
+  <thead>+
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone Number</th>
+    <th>Address</th>
+    <th>Role</th>
+    <th>Password</th>
+    <th>Action</th>
+  </thead>
+  <tbody>
+    <% users.forEach(user => { %>
+    <tr>
+      <td><a href="/admin/user/<%= user.id %>"><%= user.email %></a></td>
+      <td>
+        <form
+          action="/admin/update-role"
+          method="post"
+          class="manage-user-form"
+        >
+          <input type="hidden" name="id" value="<%= user.id %>" />
+          <select name="role" id="role">
+            <option value="ADMIN" <%= user.role === 'ADMIN' ? 'selected' : '' %> >Admin</option>
+            <option value="MODERATOR" <%= user.role === 'MODERATOR' ? 'selected' : '' %>>Moderator</option>
+            <option value="CLIENT" <%= user.role === 'CLIENT' ? 'selected' : '' %>>Client</option>
+          </select>
+          <td>
+            <a href="/update_user?id=<%= user.id%>" class="btn border-shadow update">
+                <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+            </a>
+            <a class="btn border-shadow delete" data-id=<%= user.id%> >
+                <span class="text-gradient"><i class='fas fa-times-circle' style='font-size:24px'></i></span>
+            </a>
+        </td>
+        </form>
+      </td>
+      
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include ('layouts/footer') %>

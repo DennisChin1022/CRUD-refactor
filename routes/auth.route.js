@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const User = require('../models/User');
+const User = require('../models/user.model');
 const { body, validationResult } = require('express-validator');
 const passport = require('passport');
 const { ensureLoggedOut, ensureLoggedIn } = require('connect-ensure-login');
-const { registerValidator } = require('../middleware/validators');
-const jwt = require('jsonwebtoken');
+const { registerValidator } = require('../utils/validators');
+const Customer = require('../models/customer.model');
 
 router.get(
   '/login',
@@ -45,6 +45,9 @@ router.post(
           req.flash('error', error.msg);
         });
         res.render('register', {
+          name: req.body.name,
+          photo: req.body.photo,
+          startdate: req.body.startdate,
           email: req.body.email,
           messages: req.flash(),
         });
@@ -52,21 +55,23 @@ router.post(
       }
 
       const { email } = req.body;
-      try {
-        const user = await User.create({ email, password });
-        const token = createToken(user._id);
-        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.status(201).json({ user: user._id });
+      const doesExist = await Customer.findOne({ email });
+      if (doesExist) {
+        req.flash('warning', 'Username/email already exists');
+        res.redirect('/auth/register');
+        return;
       }
-      catch (error) {
-        next(error);
-      }
-     
+      const customer = new Customer(req.body);
+      await customer.save();
+      req.flash(
+        'success',
+        `${customer.email} registered succesfully, you can now login`
+      );
+      res.redirect('/auth/login');
+    } catch (error) {
+      next(error);
     }
-    catch (error) {
-        next(error);
   }
-}
 );
 
 router.get(
@@ -80,3 +85,18 @@ router.get(
 
 module.exports = router;
 
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     next();
+//   } else {
+//     res.redirect('/auth/login');
+//   }
+// }
+
+// function ensureNOTAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     res.redirect('back');
+//   } else {
+//     next();
+//   }
+// }

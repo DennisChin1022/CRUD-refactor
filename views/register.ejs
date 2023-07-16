@@ -3,12 +3,36 @@
 <h1>Register</h1>
 <form action="/auth/register" method="post" class="lg-form">
   <div>
-    <label for="email">Email/Username</label>
+    <label for="name">Customer Name</label>
+    <input
+      type="text"
+      name="name"
+      id="name"
+    />
+  </div>
+  <div>
+    <label for="email">Email</label>
     <input
       type="text"
       name="email"
       id="email"
       value="<%= locals.email ? email : '' %>"
+    />
+  </div>
+  <div>
+    <label for="photo">Photo</label>
+    <input
+      type="text"
+      name="photo"
+      id="photo"
+    />
+  </div>
+  <div>
+    <label for="startdate">Date</label>
+    <input
+      type="date"
+      name="startdate"
+      id="startdate"
     />
   </div>
   <div>
@@ -29,3 +53,4 @@
   </p>
 </div>
 <br />
+<%- include('./layouts/footer') %>

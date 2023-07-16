@@ -1,7 +1,8 @@
-const User = require('../models/User');
+const User = require('../models/user.model');
+const Customer = require('../models/customer.model');
 const router = require('express').Router();
 const mongoose = require('mongoose');
-const { roles } = require('../middleware/constants');
+const { roles } = require('../utils/constants');
 
 router.get('/users', async (req, res, next) => {
   try {
@@ -13,6 +14,16 @@ router.get('/users', async (req, res, next) => {
   }
 });
 
+// router.get('/customer', async (req, res, next) => {
+//   try {
+//     const users = await User.find();
+//     // console.log(users)
+//     res.render('manage-customer', { users });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 router.get('/user/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -21,7 +32,7 @@ router.get('/user/:id', async (req, res, next) => {
       res.redirect('/admin/users');
       return;
     }
-    const person = await User.findById(id);
+    const person = await Customer.findById(id);
     res.render('profile', { person });
   } catch (error) {
     next(error);
@@ -73,5 +84,6 @@ router.post('/update-role', async (req, res, next) => {
     next(error);
   }
 });
+
 
 module.exports = router;

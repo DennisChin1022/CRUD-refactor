@@ -1,15 +1,14 @@
 <%- include ('layouts/header') %>
-<h1 class="table">Manage Users</h1>
-<a href="/admin/register-retailer" class="border-shadow">
-  <span class="text-gradient">New Retailer <i class="fas fa-user"></i></span>
+<h1 class="table">Manage Customer</h1>
+<a href="/admin/register-customer" class="border-shadow">
+  <span class="text-gradient">New Customer<i class="fas fa-customer"></i></span>
 </a>
 <table class="table">
   <thead>
     <th>Name</th>
     <th>Email</th>
-    <th>Phone Number</th>
-    <th>Address</th>
-    <th>Role</th>
+    <th>Photo</th>
+    <th>Start Date of Coverage</th>
     <th>Password</th>
     <th>Action</th>
   </thead>
@@ -18,15 +17,14 @@
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
-      <td><%= user.phone %></td>
-      <td><%= user.address %></td>
-      <td><%= user.role %></td>
+      <td><%= user.photo %></td>
+      <td><%= user.startdate %></td>
       <td><%= user.password %></td>
       <td>
-        <a href="/admin/update-user/<%= user.id%>" class="btn border-shadow update">
+        <a href="/admin/update-customer/<%= user.id%>" class="btn border-shadow update">
             <span class="text-gradient"><i class="fas fa-pencil-alt" aria-hidden="true"></i></span>
         </a>
-          <a href="/admin/delete-user/<%= user.id%>" class="btn border-shadow update">
+          <a href="/admin/delete-customer/<%= user.id%>" class="btn border-shadow update">
           <span class="text-gradient" ><i class="fas fa-times" ></i></span>
         </a>
         </form>
@@ -38,3 +36,5 @@
 </table>
 
 <%- include ('layouts/footer') %>
+
+

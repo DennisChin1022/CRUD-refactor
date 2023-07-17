@@ -9,15 +9,24 @@
   </div>
   <div>
     <p class="title">Email</p>
-    <p class="subtitle"><%= person.email %></p>
+    <form
+          action="/user/update-email"
+          method="post"
+          class="manage-user-form"
+        >
+          <input type="hidden" name="id" value="<%= person.id %>" />
+          <input type="text" name="email" value="<%= person.email %>" />
+          <input type="submit" value="update">
+        </form>
+  <div>
   </div>
   <div>
-    <p class="title">Phone</p>
-    <p class="subtitle"><%= person.phone %></p>
+    <p class="title">Photo of Receipt</p>
+    <p class="subtitle"><%= person.photo %></p>
   </div>
   <div>
-    <p class="title">Address</p>
-    <pre class="subtitle"><%= person.address %></pre>
+    <p class="title">Start Date of Coverage</p>
+    <pre class="subtitle"><%= person.startdate %></pre>
   </div>
 </div>
 <%- include('./layouts/footer') %>

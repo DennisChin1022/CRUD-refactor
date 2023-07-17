@@ -89,6 +89,7 @@ form.lg-form {
   font-weight: bold;
 }
 
+
 .lg-form input {
   height: 44px;
   border: none;
@@ -103,6 +104,14 @@ form.lg-form {
   background-color: #db2777;
   color: #fff;
   cursor: pointer;
+}
+
+.lg-form select {
+  border: none;
+  font-size: 1.05rem;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 2px solid #f3f4f6;
 }
 
 input:focus {
@@ -203,8 +212,8 @@ tbody tr td:first-child {
 }
 
 .table td > a.btn{
-  padding: .3em 1em;
-  font-size: 1.1em;
+  padding: .3em .3em;
+  font-size: 1em;
   margin: 0 .2em;
 }
 

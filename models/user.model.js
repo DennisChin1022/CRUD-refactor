@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
   phone:{
     type: Number,
     required: true,
+    default: "000000000",
   },
   address:{
     type: String,
@@ -27,8 +28,14 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: [roles.admin, roles.moderator, roles.client],
+    enum: [roles.admin, roles.retailer, roles.client],
     default: roles.client,
+  },
+  photo:{
+    type: String,
+  },
+  startdate:{
+    type: Date,
   },
 });
 

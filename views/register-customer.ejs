@@ -1,9 +1,9 @@
 <%- include('./layouts/header') %>
 
 <h1>Register</h1>
-<form action="/auth/register" method="post" class="lg-form">
+<form action="/retailer/register-customer" method="post" class="lg-form">
   <div>
-    <label for="name">Customer Name</label>
+    <label for="name">Username</label>
     <input
       type="text"
       name="name"
@@ -20,7 +20,7 @@
     />
   </div>
   <div>
-    <label for="photo">Photo</label>
+    <label for="name">Photo</label>
     <input
       type="text"
       name="photo"
@@ -48,9 +48,6 @@
   </div>
 </form>
 <div>
-  <p>
-    Already have an account? <span><a href="/auth/login">Login</a></span>
-  </p>
 </div>
 <br />
 <%- include('./layouts/footer') %>

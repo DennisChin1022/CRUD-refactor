@@ -1,0 +1,31 @@
+<%- include ('layouts/header') %>
+<h1 class="table">micro Customer</h1>
+<a href="/retailer/register-customer" class="border-shadow">
+  <span class="text-gradient">New Customer<i class="fas fa-customer"></i></span>
+</a>
+<table class="table">
+  <thead>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Photo</th>
+    <th>Start Date of Coverage</th>
+    <th>Role</th>
+  </thead>
+  <tbody>
+    <% users.forEach(user => { %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.photo %></td>
+      <td><%= user.startdate %></td>
+      <td><%= user.role %></td>
+      
+      
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include ('layouts/footer') %>
+
+

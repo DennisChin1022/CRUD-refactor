@@ -44,10 +44,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  res.locals.customer = req.customer;
-  next();
-});
 
 // Connect Flash
 app.use(connectFlash());
@@ -71,10 +67,10 @@ app.use(
   require('./routes/admin.route')
 );
 app.use(
-  '/moderator',
+  '/retailer',
   ensureLoggedIn({ redirectTo: '/auth/login' }),
-  ensureModerator,
-  require('./routes/admin.route')
+  ensureRetailer,
+  require('./routes/retailer.route')
 );
 
 // 404 Handler
@@ -125,8 +121,8 @@ function ensureAdmin(req, res, next) {
   }
 }
 
-function ensureModerator(req, res, next) {
-  if (req.user.role === roles.moderator) {
+function ensureRetailer(req, res, next) {
+  if (req.user.role === roles.retailer) {
     next();
   } else {
     req.flash('warning', 'you are not Authorized to see this route');

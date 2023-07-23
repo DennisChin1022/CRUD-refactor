@@ -31,8 +31,8 @@ const UserSchema = new mongoose.Schema({
     enum: [roles.admin, roles.retailer, roles.client],
     default: roles.client,
   },
-  photo:{
-    type: String,
+  image:{
+    type: String
   },
   startdate:{
     type: Date,

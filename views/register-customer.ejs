@@ -1,7 +1,7 @@
 <%- include('./layouts/header') %>
 
 <h1>Register</h1>
-<form action="/retailer/register-customer" method="post" class="lg-form">
+<form action="/retailer/register-customer" method="post" class="lg-form" enctype="multipart/form-data">
   <div>
     <label for="name">Username</label>
     <input
@@ -20,11 +20,11 @@
     />
   </div>
   <div>
-    <label for="name">Photo</label>
+    <label for="image">Image</label>
     <input
-      type="text"
-      name="photo"
-      id="photo"
+      type="file"
+      name="image"
+      id="image"
     />
   </div>
   <div>

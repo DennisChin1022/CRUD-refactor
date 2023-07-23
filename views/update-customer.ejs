@@ -1,8 +1,8 @@
 <%- include('./layouts/header') %>
 
-<h1 class="table"><span class="goback" onclick="window.history.back()">←</span> Update User</h1>
+<h1 class="table"><span class="goback" onclick="window.history.back()">←</span> Update Customer</h1>
 <form
-          action="/admin/update-user"
+          action="/admin/update-customer"
           method="post"
           class="lg-form"
         >
@@ -16,8 +16,11 @@
             <input type="text" name="email" value="<%= user.email%>">
         </div>
         <div class="form-group">
-            <label for="photo" class="text-light">Photo Number</label>
-            <input type="photo" name="photo" value="<%= user.photo%>">
+            <label for="image" class="text-light">Image</label>
+            <td><img
+                src="/uploads/<%= user.image %>" width="100" class="img-thumbnail"/>
+            </td>
+            <input type="file" name="image" value="/uploads/<%= user.image %>">
         </div>
         <div class="form-group">
             <label for="startdate" class="text-light">Date</label>

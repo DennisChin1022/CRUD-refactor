@@ -4,6 +4,18 @@ const mongoose = require('mongoose');
 const { roles } = require('../utils/constants');
 const { registerValidator } = require('../utils/validators');
 const { body, validationResult } = require('express-validator');
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+  destination: function(req,file,cb){
+    cb(null,'./uploads');
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.fieldname + '_' + Date.now())
+  },
+});
+
+const upload= multer({storage: storage})
 
 router.get('/users', async (req, res, next) => {
   try {
@@ -15,15 +27,6 @@ router.get('/users', async (req, res, next) => {
   }
 });
 
-// router.get('/customer', async (req, res, next) => {
-//   try {
-//     const users = await User.find();
-//     // console.log(users)
-//     res.render('manage-customer', { users });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 router.get('/update-user/:id', async (req, res, next) => {
   try {
@@ -149,9 +152,9 @@ router.get('/update-customer/:id', async (req, res, next) => {
 });
 
 
-router.post('/update-customer', async (req, res, next) => {
+router.post('/update-customer',upload.single("image"), async (req, res, next) => {
   try {
-    const {id} = req.body;
+    const {id, image} = req.body;
 
     // Checking for id and roles in req.body
     if (!id) {
@@ -166,7 +169,7 @@ router.post('/update-customer', async (req, res, next) => {
     }
 
     // Finally update the customer
-    const user = await User.findByIdAndUpdate(id, req.body);
+    const user = await User.findByIdAndUpdate(id, req.body, image, req.file.filename);
     req.flash('info', `updated data for ${user.email}`);
     res.redirect('back');
   } catch (error) {

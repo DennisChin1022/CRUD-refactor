@@ -7,7 +7,7 @@
   <thead>
     <th>Name</th>
     <th>Email</th>
-    <th>Photo</th>
+    <th>Image</th>
     <th>Start Date of Coverage</th>
     <th>Role</th>
   </thead>
@@ -16,7 +16,9 @@
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
-      <td><%= user.photo %></td>
+      <td><img
+        src="/uploads/<%= user.image %>" width="100" class="img-thumbnail"/>
+      </td>
       <td><%= user.startdate %></td>
       <td><%= user.role %></td>
       

@@ -13,18 +13,20 @@
     <th>Action</th>
   </thead>
   <tbody>
-    <% users.forEach(user => { %>
+    <% customers.forEach(customer => { %>
     <tr>
-      <td><%= user.name %></td>
-      <td><%= user.email %></td>
-      <td><%= user.image %></td>
-      <td><%= user.startdate %></td>
-      <td><%= user.password %></td>
+      <td><%= customer.name %></td>
+      <td><%= customer.email %></td>
+      <td><img
+        src="/uploads/<%= customer.image %>" width="100" class="img-thumbnail"/>
+      </td>
+      <td><%= customer.startdate %></td>
+      <td><%= customer.password %></td>
       <td>
-        <a href="/admin/update-customer/<%= user.id%>" class="btn border-shadow update">
+        <a href="/admin/update-customer/<%= customer.id%>" class="btn border-shadow update">
             <span class="text-gradient"><i class="fas fa-pencil-alt" aria-hidden="true"></i></span>
         </a>
-          <a href="/admin/delete-customer/<%= user.id%>" class="btn border-shadow update">
+          <a href="/admin/delete-customer/<%= customer.id%>" class="btn border-shadow update">
           <span class="text-gradient" ><i class="fas fa-times" ></i></span>
         </a>
         </form>

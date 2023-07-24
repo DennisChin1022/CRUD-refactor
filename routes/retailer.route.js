@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const Customer = require('../models/customer.model');
 const router = require('express').Router();
 const { roles } = require('../utils/constants');
 const { registerValidator } = require('../utils/validators');
@@ -19,9 +20,9 @@ const upload= multer({storage: storage})
 
 router.get('/customers', async (req, res, next) => {
   try {
-    const users = await User.find();
+    const customers = await Customer.find();
     // res.send(customers);
-    res.render('micro-customers', { users });
+    res.render('micro-customers', { customers });
   } catch (error) {
     next(error);
   }
@@ -56,24 +57,31 @@ router.post(
       }
 
       const { email } = req.body;
-      const doesExist = await User.findOne({ email });
-      if (doesExist) {
+      const doesExist = await Customer.findOne({ email });
+      const userdoesExist = await User.findOne({ email });
+      if (doesExist || userdoesExist) {
         req.flash('warning', 'Username/email already exists');
         res.redirect('/admin/register-customer');
         return;
       }
       console.log(req.file)
-      const user = new User({
+      const customer = new Customer({
         name: req.body.name,
         email: req.body.email,
         image: req.file.filename,
         password: req.body.password,
         startdate: req.body.startdate,
       });
+      const user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+      });
+      await customer.save();
       await user.save();
       req.flash(
         'success',
-        `${user.email} registered succesfully, you can now login`
+        `${customer.email} registered succesfully, you can now login`
       );
     } catch (error) {
       next(error);

@@ -12,15 +12,15 @@
     <th>Role</th>
   </thead>
   <tbody>
-    <% users.forEach(user => { %>
+    <% customers.forEach(customer => { %>
     <tr>
-      <td><%= user.name %></td>
-      <td><%= user.email %></td>
+      <td><%= customer.name %></td>
+      <td><%= customer.email %></td>
       <td><img
-        src="/uploads/<%= user.image %>" width="100" class="img-thumbnail"/>
+        src="/uploads/<%= customer.image %>" width="100" class="img-thumbnail"/>
       </td>
-      <td><%= user.startdate %></td>
-      <td><%= user.role %></td>
+      <td><%= customer.startdate %></td>
+      <td><%= customer.role %></td>
       
       
     </tr>

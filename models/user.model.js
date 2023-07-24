@@ -28,14 +28,8 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: [roles.admin, roles.retailer, roles.client],
+    enum: [roles.admin, roles.retailer,roles.client],
     default: roles.client,
-  },
-  image:{
-    type: String
-  },
-  startdate:{
-    type: Date,
   },
 });
 

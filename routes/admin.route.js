@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const Customer = require('../models/customer.model');
 const router = require('express').Router();
 const mongoose = require('mongoose');
 const { roles } = require('../utils/constants');
@@ -133,9 +134,9 @@ router.post(
 //-------------------------------------------customer--------------------------------------//
 router.get('/customers', async (req, res, next) => {
   try {
-    const users = await User.find();
+    const customers = await Customer.find();
     // res.send(customers);
-    res.render('manage-customers', { users });
+    res.render('manage-customers', { customers });
   } catch (error) {
     next(error);
   }
@@ -144,8 +145,8 @@ router.get('/customers', async (req, res, next) => {
 router.get('/update-customer/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id);
-    res.render('update-customer', { user });
+    const customer = await Customer.findById(id);
+    res.render('update-customer', { customer });
   } catch (error) {
     next(error);
   }
@@ -169,8 +170,8 @@ router.post('/update-customer',upload.single("image"), async (req, res, next) =>
     }
 
     // Finally update the customer
-    const user = await User.findByIdAndUpdate(id, req.body, image, req.file.filename);
-    req.flash('info', `updated data for ${user.email}`);
+    const customer = await Customer.findByIdAndUpdate(id, req.body, image, req.file.filename);
+    req.flash('info', `updated data for ${customer.email}`);
     res.redirect('back');
   } catch (error) {
     next(error);
@@ -182,8 +183,8 @@ router.get('/delete-customer/:id', async (req, res, next) => {
     // const {id} = req.params.id;
     // Check for valid mongoose objectID
         // Finally update the customer
-    const user = await User.findByIdAndDelete(req.params.id);
-    req.flash('info', `deleted data for ${user.email}`);
+    const customer = await Customer.findByIdAndDelete(req.params.id);
+    req.flash('info', `deleted data for ${customer.email}`);
     res.redirect('back');
   } catch (error) {
     next(error);

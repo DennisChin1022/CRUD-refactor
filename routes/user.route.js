@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const User = require('../models/user.model');
+const Customer = require('../models/customer.model');
 const mongoose = require('mongoose');
 
 router.get('/profile', async (req, res, next) => {
   // console.log(req.user);
-  const person = req.user;
+  const person = req.customer;
   res.render('profile', { person });
 });
 
@@ -25,7 +25,7 @@ router.post('/update-email', async (req, res, next) => {
     }
     
     // Finally update the user
-    const person = await User.findByIdAndUpdate(id, 
+    const person = await Customer.findByIdAndUpdate(id, 
       { email },
       { new: true, runValidators: true }
     );

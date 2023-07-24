@@ -1,8 +1,9 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user.model');
+const Customer = require('../models/customer.model');
 
-passport.use(
+passport.use('user',
   new LocalStrategy(
     {
       usernameField: 'email',
@@ -21,6 +22,33 @@ passport.use(
         const isMatch = await user.password;
         return isMatch
           ? done(null, user)
+          : done(null, false, { message: 'Incorrect password' });
+      } catch (error) {
+        done(error);
+      }
+    }
+  )
+);
+
+passport.use('customer',
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+      passwordField: 'password',
+    },
+    async (email, password, done) => {
+      try {
+        const customer = await Customer.findOne({ email });
+        // Username/email does NOT exist
+        if (!customer) {
+          return done(null, false, {
+            message: 'Username/email not registered',
+          });
+        }
+        // Email exist and now we need to verify the password
+        const isMatch = await customer.password;
+        return isMatch
+          ? done(null, customer)
           : done(null, false, { message: 'Incorrect password' });
       } catch (error) {
         done(error);

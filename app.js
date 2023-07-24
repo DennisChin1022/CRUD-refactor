@@ -11,6 +11,7 @@ const passport = require('passport');
 const { roles } = require('./utils/constants');
 const connectMongo = require('connect-mongo');
 
+
 // Initialization
 const app = express();
 app.use(morgan('dev'));
@@ -44,13 +45,6 @@ app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
-
-app.use((req, res, next) => {
-  res.locals.customer = req.customer;
-  next();
-});
-
-
 
 // Connect Flash
 app.use(connectFlash());

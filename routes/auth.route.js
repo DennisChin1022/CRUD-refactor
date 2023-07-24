@@ -4,8 +4,12 @@ const { ensureLoggedOut, ensureLoggedIn } = require('connect-ensure-login');
 const User = require('../models/user.model');
 const jwt = require("jsonwebtoken");
 var nodemailer = require('nodemailer')
+require('dotenv').config();
+require('dotenv').config({ path: 'config.env' });
+const crypto = require('crypto');
+let nonce = crypto.randomBytes(16).toString('base64');
 
-const JWT_SECRET = "supersecret"
+const JWT_SECRET = process.env.SECRET_SECRET
 
 router.get(
   '/login',
@@ -50,7 +54,7 @@ router.post("/forgot-password", async (req, res) => {
       req.flash('warning', 'If the account exists, a password reset link has been sent to you by email');
         res.redirect('/auth/forgot-password');
     }
-    const secret = JWT_SECRET + user.password;
+    const secret = JWT_SECRET + nonce;
     const token = jwt.sign({ email: user.email, id: user._id }, secret, {
       expiresIn: "15m",
     });

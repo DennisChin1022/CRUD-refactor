@@ -3,17 +3,31 @@
   <ul>
     <li><a href="/">Home</a></li> 
     <% if (user) { %>
-      <li><a href="/user/profile">Profile</a></li>
+    <% if (user && user.role ==='RETAILER') { %>
       <li><a href="/retailer/customers">Micro Customer</a></li>
-    <% if (user.role ==='ADMIN') { %>
+      <li><a href="/auth/logout">Logout</a></li>
+      <% } else { %>
+      <% } %>
+    <% if (user && user.role ==='ADMIN') { %>
       <li><a href="/admin/customers">Manage Customer</a></li>
       <li><a href="/admin/users">Manage Users</a></li>
-    <% } %> 
-    <li><a href="/auth/logout">Logout</a></li>
-
+      <li><a href="/auth/logout">Logout</a></li>
     <% } else { %>
-    <li><a href="/auth/login">Login</a></li>
     <% } %>
+    <% if (user && user.role ==='CLIENT') { %>
+      <li><a href="/user/profile">Profile</a></li>
+      <li><a href="/auth/logout">Logout</a></li>
+    <% } else { %>
+    <% } %>
+    <% } else { %>
+      <li><a href="/auth/login">Login</a></li>
+    <% } %>
+
+    
+
   </ul>
 </nav>
+
+
+
 

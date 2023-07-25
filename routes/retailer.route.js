@@ -5,12 +5,14 @@ const { roles } = require('../utils/constants');
 const { registerValidator } = require('../utils/validators');
 const { body, validationResult } = require('express-validator');
 const multer = require('multer')
+const path = require('path');
 
 //photo upload
 const storage = multer.diskStorage({
   destination: function(req,file,cb){
     cb(null,'./uploads');
     },
+    
     filename: (req, file, cb) => {
       cb(null, file.fieldname + '_' + Date.now())
   },
@@ -61,10 +63,20 @@ router.post(
       const userdoesExist = await User.findOne({ email });
       if (doesExist || userdoesExist) {
         req.flash('warning', 'Username/email already exists');
-        res.redirect('/admin/register-customer');
+        res.redirect('/retailer/register-customer');
         return;
       }
       console.log(req.file)
+      if (req.file.mimetype !== 'image/png' && req.file.mimetype !=='image/jpg' && req.file.mimetype !== 'application/pdf' && req.file.mimetype !== 'image/jpeg') {
+        req.flash('warning', 'Only Image/PDF allowed');
+        res.redirect('/retailer/register-customer');
+        return;
+      } 
+      if (req.file.size >  1000000 ) {
+        req.flash('warning', 'File too large');
+        res.redirect('/retailer/register-customer');
+        return;
+      }        
       const customer = new Customer({
         name: req.body.name,
         email: req.body.email,

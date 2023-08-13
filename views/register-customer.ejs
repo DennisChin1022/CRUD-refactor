@@ -1,13 +1,102 @@
 <%- include('./layouts/header') %>
 
-<h1>Register</h1>
+<h1>1.Watch Details</h1>
 <form action="/retailer/register-customer" method="post" class="lg-form" enctype="multipart/form-data">
   <div>
-    <label for="name">Username</label>
+  <label for="brandname" class="text-light">Brand Name</label>
+      <select name="brandname" id="brandname">
+          <option value="ROLEX">ROLEX</option>
+          <option value="AZIMUTH">AZIMUTH</option>
+          <option value="OMEGA">OMEGA</option>
+      </select>
+  </div>
+  <div>
+    <label for="modelname">Model name(optional)</label>
+    <input
+      type="text"
+      name="modelname"
+      id="modelname"
+    />
+  </div>
+  <div>
+    <label for="modelcode">Modelcode/number</label>
+    <input
+      type="text"
+      name="modelcode"
+      id="modelcode"
+    />
+  </div>
+  <div>
+    <label for="description">Description</label>
+    <input
+      type="text"
+      name="description"
+      id="description"
+    />
+  </div>
+  <div>
+    <label for="serialnumber">Serial Number</label>
+    <input
+      type="text"
+      name="serialnumber"
+      id="serialnumber"
+    />
+  </div>
+  <div>
+    <label for="cardnumber">Guarantee card number</label>
+    <input
+      type="text"
+      name="cardnumber"
+      id="cardnumber"
+    />
+  </div>
+  <div>
+    <label for="price">Invoice Price</label>
+    <input
+      type="text"
+      name="price"
+      id="price"
+    />
+  </div>
+  <div>
+    <label for="date">Purchase Date</label>
+    <input
+      type="date"
+      name="date"
+      id="date"
+    />
+  </div>
+  <h2>2.Insured Details</h1>
+    <p>Gift case:If the gift receiver is also VIP, enter his/her details below</p>
+  <div>
+    <label for="vipnumber">VIP number</label>
+    <input
+      type="text"
+      name="vipnumber"
+      id="vipnumber"
+    />
+  </div>
+  <div>
+    <label for="name">Full English Name on HKID</label>
     <input
       type="text"
       name="name"
       id="name"
+    />
+  </div>
+  <div>
+    <label for="gender" class="text-light">Gender</label>
+            <select name="gender" id="gender">
+                <option value="MALE">MALE</option>
+                <option value="FEMALE">FEMALE</option>
+            </select>
+  </div>
+  <div>
+    <label for="dob">Date of Birth</label>
+    <input
+      type="date"
+      name="dob"
+      id="dob"
     />
   </div>
   <div>
@@ -16,9 +105,26 @@
       type="text"
       name="email"
       id="email"
-      value="<%= locals.email ? email : '' %>"
     />
   </div>
+  <div>
+    <label for="phone">Mobile Number</label>
+    <input
+      type="text"
+      name="phone"
+      id="phone"
+    />
+  </div>
+  <div>
+    <label for="address">Home Address(optional)</label>
+    <input
+      type="text"
+      name="address"
+      id="address"
+    />
+  </div>
+  <h1>3.Upload Photos</h1>
+  <p>Keep photos less than 5GB in JPG/PNG/PDF format</p>
   <div>
     <label for="image">Image</label>
     <input
@@ -27,25 +133,9 @@
       id="image"
     />
   </div>
-  <div>
-    <label for="startdate">Date</label>
-    <input
-      type="date"
-      name="startdate"
-      id="startdate"
-    />
-  </div>
-  <div>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" />
-  </div>
-  <div>
-    <label for="password2">Confirm password</label>
-    <input type="password" name="password2" id="password2" />
-  </div>
-  <div>
-    <input type="submit" value="Register" />
-  </div>
+    <div>
+    <input type="submit" value="Submit" />
+    </div>
 </form>
 <div>
 </div>

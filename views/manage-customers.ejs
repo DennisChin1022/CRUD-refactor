@@ -1,38 +1,60 @@
 <%- include ('layouts/header') %>
-<h1 class="table">Manage Customer</h1>
-<table class="table">
-  <thead>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Image</th>
-    <th>Start Date of Coverage</th>
-    <th>Password</th>
-    <th>Action</th>
-  </thead>
-  <tbody>
-    <% customers.forEach(customer => { %>
-    <tr>
-      <td><%= customer.name %></td>
-      <td><%= customer.email %></td>
-      <td><img
-        src="/uploads/<%= customer.image %>" width="100" class="img-thumbnail"/>
-      </td>
-      <td><%= customer.startdate %></td>
-      <td><%= customer.password %></td>
-      <td>
-        <a href="/admin/update-customer/<%= customer.id%>" class="btn border-shadow update">
-            <span class="text-gradient"><i class="fas fa-pencil-alt" aria-hidden="true"></i></span>
-        </a>
-          <a href="/admin/delete-customer/<%= customer.id%>" class="btn border-shadow update">
-          <span class="text-gradient" ><i class="fas fa-times" ></i></span>
-        </a>
-        </form>
-      </td>
-      
-    </tr>
-    <% }) %>
-  </tbody>
-</table>
+
+<body>
+  <main class="table">
+      <section class="table__header">
+          <h1>Customer's Status</h1>
+          <div class="input-group">
+            <input id="searchbar" onkeyup="search()" type="text"
+                name="search" placeholder="Search Data..">
+          </div>
+          <a href="/admin/register-customer-manager" class="border-shadow">
+            <span class="text-gradient">New Customer<i class="fas fa-customer"></i></span>
+          </a>
+      </section>
+      <section class="table__body">
+        <table>
+            <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Brand Name</th>
+                  <th>Mobile Number</th>
+                  <th>Gender</th>
+                  <th>Invoice Price</th>
+                  <th>Purchase Date</th>
+                  <th>Vip Number</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% customers.forEach(customer => { %>
+                <tr>
+                  <td><a href="/admin/customer/<%= customer.id%>"><%= customer.name %></a></td>
+                  <td><%= customer.email %></td>
+                  <td><%= customer.brandname %></td>
+                  <td><%= customer.phone%></td>
+                  <td><%= customer.gender %></td>
+                  <td><%= customer.price%></td>
+                  <td><%= customer.date %></td>
+                  <td><%= customer.vipnumber %></td>
+                  <td>
+                  <a href="/admin/update-customer/<%= customer.id%>" class="btn border-shadow update">
+                      <span class="text-gradient"><i class="fas fa-pencil-alt" aria-hidden="true"></i></span>
+                  </a>
+                    <a href="/admin/delete-customer/<%= customer.id%>" class="btn border-shadow update">
+                    <span class="text-gradient" ><i class="fas fa-times" ></i></span>
+                  </a>
+                  </form>
+                </td>
+                </tr>
+                <% }) %>
+              </tbody>
+          </table>
+        </section>
+    </main>
+    <script src="app.js" defer></script>
+  </body>
 
 <%- include ('layouts/footer') %>
 

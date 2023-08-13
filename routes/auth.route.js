@@ -7,6 +7,7 @@ var nodemailer = require('nodemailer')
 require('dotenv').config();
 require('dotenv').config({ path: 'config.env' });
 const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 let nonce = crypto.randomBytes(16).toString('base64');
 
 const JWT_SECRET = process.env.SECRET_SECRET
@@ -24,7 +25,7 @@ router.post(
   ensureLoggedOut({ redirectTo: '/' }),
   passport.authenticate('local', {
     // successRedirect: '/',
-    successReturnToOrRedirect: '/',
+    successReturnToOrRedirect: '/admin/customers',
     failureRedirect: '/auth/login',
     failureFlash: true,
   })
@@ -46,6 +47,9 @@ router.get(
   }
 );
 
+const secret = JWT_SECRET + nonce;
+
+
 router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
   try {
@@ -54,7 +58,6 @@ router.post("/forgot-password", async (req, res) => {
       req.flash('warning', 'If the account exists, a password reset link has been sent to you by email');
         res.redirect('/auth/forgot-password');
     }
-    const secret = JWT_SECRET + nonce;
     const token = jwt.sign({ email: user.email, id: user._id }, secret, {
       expiresIn: "15m",
     });
@@ -104,7 +107,6 @@ router.get("/reset-password/:id/:token", async (req, res) => {
   if (!user) {
     return res.json({ status: "User Not Exists!!" });
   }
-  const secret = JWT_SECRET + user.password;
   try {
     const verify = jwt.verify(token, secret);
     res.render("reset-password", { email: verify.email, status: "Not Verified" });
@@ -120,17 +122,19 @@ router.post("/reset-password/:id/:token", async (req, res) => {
   if (!user) {
     return res.json({ status: "User Not Exists!!" });
   }
-  const secret = JWT_SECRET + user.password;
+  const secret = JWT_SECRET + nonce;
   try {
     const verify = jwt.verify(token, secret);
     const { password } = req.body;
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
     await User.updateOne(
       {
         _id: id,
       },
       {
         $set: {
-          password: password,
+          password: hashedPassword,
         },
       }
     );

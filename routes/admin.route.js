@@ -134,13 +134,27 @@ router.post(
 //-------------------------------------------customer--------------------------------------//
 router.get('/customers', async (req, res, next) => {
   try {
-    const customers = await Customer.find();
+    const search = req.query.search ||"";
+    const customers = await Customer.find({brandname:{$regex:search, $options: "i"}});
     // res.send(customers);
     res.render('manage-customers', { customers });
   } catch (error) {
     next(error);
   }
 });
+
+router.get("/customer/:key", async (req,res)=>{
+  let data = await Customer.find(
+      {
+          "$or":[
+              {name:{$regex:req.params.key}},
+              {brand:{$regex:req.params.key}}
+          ]
+      }
+  )
+  res.send(data);
+
+})
 
 router.get('/update-customer/:id', async (req, res, next) => {
   try {
@@ -170,7 +184,7 @@ router.post('/update-customer',upload.single("image"), async (req, res, next) =>
     }
 
     // Finally update the customer
-    const customer = await Customer.findByIdAndUpdate(id, req.body, image, req.file.filename);
+    const customer = await Customer.findByIdAndUpdate(id, req.body);
     req.flash('info', `updated data for ${customer.email}`);
     res.redirect('back');
   } catch (error) {
@@ -190,6 +204,75 @@ router.get('/delete-customer/:id', async (req, res, next) => {
     next(error);
   }
 });
+
+router.get(
+  '/register-customer-manager',
+    async (req, res, next) => {
+    res.render('register-customer-manager');
+  }
+);
+
+router.post(
+  '/register-customer-manager', upload.single("image"),
+   registerValidator,
+    async (req, res, next) => {
+    try {
+          if (req.file.mimetype !== 'image/png' && req.file.mimetype !=='image/jpg' && req.file.mimetype !== 'application/pdf' && req.file.mimetype !== 'image/jpeg') {
+        req.flash('warning', 'Only Image/PDF allowed');
+        res.redirect('/admin/register-customer-manager');
+        return;
+      } 
+      if (req.file.size >  1000000 ) {
+        req.flash('warning', 'File too large');
+        res.redirect('/admin/register-customer-manager');
+        return;
+      }        
+      const customer = new Customer({
+        brandname: req.body.brandname,
+        modelname: req.body.modelname,
+        modelcode: req.body.modelcode,
+        description: req.body.description,
+        serialnumber: req.body.serialnumber,
+        cardnumber: req.body.cardnumber,
+        price: req.body.price,
+        date: req.body.date,
+        vipnumber: req.body.vipnumber,
+        name: req.body.name,
+        gender: req.body.gender,
+        dob: req.body.dob,
+        email: req.body.email,
+        phone: req.body.phone,
+        address: req.body.address,
+        image: req.file.filename,
+      });
+      await customer.save();
+      req.flash(
+        'success',
+        `${customer.email} Createed succesfully, you can view it in All Customer`
+      );
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.get(
+  '/customer/:id',
+    async (req, res, next) => {
+      try {
+        const { id } = req.params;
+        const customer = await Customer.findById(id);
+        res.render('customer-info', { customer });
+        const html = fs.readFileSync(path.join(__dirname, '../views/template.html'), 'utf-8');
+        const filename = Math.random() + '_doc' + '.pdf';
+        
+      } catch (error) {
+        next(error);
+      }
+   
+  }
+);
+
 
 // router.get(
 //   '/register-customer',

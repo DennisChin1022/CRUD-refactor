@@ -7,22 +7,25 @@
   <thead>
     <th>Name</th>
     <th>Email</th>
-    <th>Image</th>
-    <th>Start Date of Coverage</th>
-    <th>Role</th>
+    <th>Brand Name</th>
+    <th>Mobile Number</th>
+    <th>Gender</th>
+    <th>Invoice Price</th>
+    <th>Purchase Date</th>
+    <th>Vip Number</th>
+    <th>Action</th>
   </thead>
   <tbody>
     <% customers.forEach(customer => { %>
     <tr>
-      <td><%= customer.name %></td>
+      <td><a href="/retailer/customer/<%= customer.id%>"><%= customer.name %></a></td>
       <td><%= customer.email %></td>
-      <td><img
-        src="/uploads/<%= customer.image %>" width="100" class="img-thumbnail"/>
-      </td>
-      <td><%= customer.startdate %></td>
-      <td><%= customer.role %></td>
-      
-      
+      <td><%= customer.brandname %></td>
+      <td><%= customer.phone%></td>
+      <td><%= customer.gender %></td>
+      <td><%= customer.price%></td>
+      <td><%= customer.date %></td>
+      <td><%= customer.vipnumber %></td>
     </tr>
     <% }) %>
   </tbody>

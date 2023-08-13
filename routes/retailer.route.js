@@ -42,32 +42,7 @@ router.post(
    registerValidator,
     async (req, res, next) => {
     try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        errors.array().forEach((error) => {
-          req.flash('error', error.msg);
-        });
-        res.render('register-customer', {
-          name: req.body.name,
-          email: req.body.email,
-          image: req.file.filename,
-          password: req.body.password,
-          startdate: req.body.startdate,
-          messages: req.flash(),
-        });
-        return;
-      }
-
-      const { email } = req.body;
-      const doesExist = await Customer.findOne({ email });
-      const userdoesExist = await User.findOne({ email });
-      if (doesExist || userdoesExist) {
-        req.flash('warning', 'Username/email already exists');
-        res.redirect('/retailer/register-customer');
-        return;
-      }
-      console.log(req.file)
-      if (req.file.mimetype !== 'image/png' && req.file.mimetype !=='image/jpg' && req.file.mimetype !== 'application/pdf' && req.file.mimetype !== 'image/jpeg') {
+          if (req.file.mimetype !== 'image/png' && req.file.mimetype !=='image/jpg' && req.file.mimetype !== 'application/pdf' && req.file.mimetype !== 'image/jpeg') {
         req.flash('warning', 'Only Image/PDF allowed');
         res.redirect('/retailer/register-customer');
         return;
@@ -78,27 +53,51 @@ router.post(
         return;
       }        
       const customer = new Customer({
+        brandname: req.body.brandname,
+        modelname: req.body.modelname,
+        modelcode: req.body.modelcode,
+        description: req.body.description,
+        serialnumber: req.body.serialnumber,
+        cardnumber: req.body.cardnumber,
+        price: req.body.price,
+        date: req.body.date,
+        vipnumber: req.body.vipnumber,
         name: req.body.name,
+        gender: req.body.gender,
+        dob: req.body.dob,
         email: req.body.email,
+        phone: req.body.phone,
+        address: req.body.address,
         image: req.file.filename,
-        password: req.body.password,
-        startdate: req.body.startdate,
-      });
-      const user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
       });
       await customer.save();
-      await user.save();
       req.flash(
         'success',
-        `${customer.email} registered succesfully, you can now login`
+        `${customer.email} Createed succesfully, you can view it in All Customer`
       );
     } catch (error) {
       next(error);
     }
   }
 );
+
+router.get(
+  '/customer/:id',
+    async (req, res, next) => {
+      try {
+        const { id } = req.params;
+        const customer = await Customer.findById(id);
+        res.render('customer-info', { customer });
+        const html = fs.readFileSync(path.join(__dirname, '../views/template.html'), 'utf-8');
+        const filename = Math.random() + '_doc' + '.pdf';
+        
+      } catch (error) {
+        next(error);
+      }
+   
+  }
+);
+
+
 
 module.exports = router;

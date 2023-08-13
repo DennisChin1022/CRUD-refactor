@@ -1,0 +1,80 @@
+<%- include('./layouts/header') %>
+
+<h1><span class="goback" onclick="window.history.back()">←</span> Profile</h1>
+
+<div class="profile">
+<h2>1.Watch Details</h2>
+
+<div>
+  <label for="brandname" class="text-light">Brand Name:</label>
+  <a class="subtitle"><%= customer.brandname %></a>
+</div>
+  <div>
+    <label for="modelname">Model name: </label>
+    <a class="subtitle"><%= customer.modelname %></a>
+  </div>
+  <div>
+    <label for="modelcode">Modelcode/number:</label>
+    <a class="subtitle"><%= customer.modelcode %></a>
+  </div>
+  <div>
+    <label for="description">Description:</label>
+    <a class="subtitle"><%= customer.description %></a>
+  </div>
+  <div>
+    <label for="serialnumber">Serial Number:</label>
+    <a class="subtitle"><%= customer.serialnumber %></a>
+  </div>
+  <div>
+    <label for="cardnumber">Guarantee card number:</label>
+    <a class="subtitle"><%= customer.cardnumber%></a>
+  </div>
+  <div>
+    <label for="price">Invoice Price:</label>
+    <a class="subtitle"><%= customer.price%></a>
+  </div>
+  <div>
+    <label for="date">Purchase Date:</label>
+    <a class="subtitle"><%= customer.date %></a>
+  </div>
+  <h3>2.Insured Details</h3>
+    <p>Gift case:If the gift receiver is also VIP, enter his/her details below</p>
+  <div>
+    <label for="vipnumber">VIP number:</label>
+    <a class="subtitle"><%= customer.vipnumber%></a>
+  </div>
+  <div>
+    <label for="name">Full English Name on HKID:</label>
+    <a class="subtitle"><%= customer.name %></a>
+  </div>
+  <div>
+    <label for="gender" class="text-light">Gender:</label>
+    <a class="subtitle"><%= customer.gender %></a>
+  </div>
+  <div>
+    <label for="dob">Date of Birth:</label>
+    <a class="subtitle"><%= customer.dob %></a>
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <a class="subtitle"><%= customer.email %></a>
+    
+  </div>
+  <div>
+    <label for="phone">Mobile Number:</label>
+    <a class="subtitle"><%= customer.phone %></a>
+  </div>
+  <div>
+    <label for="address">Home Address:</label>
+    <a class="subtitle"><%= customer.address %></a>
+  </div>
+<h4>3.Upload Photos</h4>
+  <div>
+    <label for="image">Image</label>
+    <td><img
+      src="/uploads/<%= customer.image %>" width="200" class="img-thumbnail" />
+    </td>
+  </div>
+</div>
+<br />
+<%- include('./layouts/footer') %>

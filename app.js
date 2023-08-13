@@ -130,3 +130,59 @@ function ensureRetailer(req, res, next) {
     res.redirect('/');
   }
 }
+
+
+if (typeof window !== 'undefined') {
+  // 👉️ can use document here
+  console.log('You are on the browser')
+
+  console.log(document.title)
+  console.log(document.getElementsByClassName('my-class'));
+} else {
+  // 👉️ can't use document here
+  console.log('You are on the server')
+}
+
+// const search = document.querySelector('.input-group input'),
+//     table_rows = document.querySelectorAll('tbody tr'),
+//     table_headings = querySelectorAll('thead th');
+
+// // 1. Searching for specific data of HTML table
+// search.addEventListener('input', searchTable);
+
+// function searchTable() {
+//     table_rows.forEach((row, i) => {
+//         let table_data = row.textContent.toLowerCase(),
+//             search_data = search.value.toLowerCase();
+
+//         row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
+//     })
+
+//     document.querySelectorAll('tbody tr:not(.hide)').forEach((visible_row, i) => {
+//         visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
+//     });
+// }
+
+// const search = document.querySelector("[data-search]")
+
+// let users = []
+
+// search.addEventListener("input", e => {
+//   const value = e.target.value()
+//   console.log(value)
+// })
+
+// function search() {
+//   let input = document.getElementById('search').value
+//   input=input.toLowerCase();
+//   let x = document.getElementsByClassName('brandname');
+    
+//   for (i = 0; i < x.length; i++) { 
+//       if (!x[i].innerHTML.toLowerCase().includes(input)) {
+//           x[i].style.display="none";
+//       }
+//       else {
+//           x[i].style.display="list-item";                 
+//       }
+//   }
+// }

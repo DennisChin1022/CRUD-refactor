@@ -6,33 +6,91 @@
           method="post"
           class="lg-form"
         >
-        <div class="form-group">
-            <label for="name" class="text-light">Name</label>
-            <input type="hidden" name="id" value="<%= user.id %>" />
-            <input type="text" name="name" value="<%= user.name %>">
-        </div>
-        <div class="form-group">
-            <label for="email" class="text-light">Email</label>
-            <input type="text" name="email" value="<%= user.email%>">
-        </div>
-        <div class="form-group">
-            <label for="image" class="text-light">Image</label>
-            <td><img
-                src="/uploads/<%= user.image %>" width="100" class="img-thumbnail"/>
-            </td>
-            <input type="file" name="image" value="/uploads/<%= user.image %>">
-        </div>
-        <div class="form-group">
-            <label for="startdate" class="text-light">Date</label>
-            <input type="date" name="startdate" value="<%= user.startdate %>">
-        </div>
-        <div class="form-group">
-            <label for="password" class="text-light">Password</label>
-            <input type="text" name="password" value="<%= user.password %>">
-        </div>
-        <div class="form-group">
-            <input type="submit" value="update" >
-        </div>
+    <label for="brandname" class="text-light">Brand Name</label>
+      <select name="brandname" id="brandname">
+          <option value="ROLEX" <%= customer.brandname === 'ROLEX' ? 'selected' : '' %>>ROLEX</option>
+          <option value="AZIMUTH"<%= customer.brandname === 'AZIMUTH' ? 'selected' : '' %>>AZIMUTH</option>
+          <option value="OMEGA"<%= customer.brandname === 'OMEGA' ? 'selected' : '' %>>OMEGA</option>
+      </select>
+  </div>
+  <div>
+    <label for="modelname">Model name(optional)</label>
+    <input type="hidden" name="id" value="<%= customer.id %>" />
+    <input type="text" name="modelname" value="<%= customer.modelname%>">
+  </div>
+  <div>
+    <label for="modelcode">Modelcode/number</label>
+    <input type="text" name="modelcode" value="<%= customer.modelcode%>">
+  </div>
+  <div>
+    <label for="description">Description</label>
+    <input type="text" name="description" value="<%= customer.description%>">
+  </div>
+  <div>
+    <label for="serialnumber">Serial Number</label>
+    <input type="text" name="serialnumber" value="<%= customer.serialnumber%>">
+  </div>
+  <div>
+    <label for="cardnumber">Guarantee card number</label>
+    <input type="text" name="cardnumber" value="<%= customer.cardnumber%>">
+  </div>
+  <div>
+    <label for="price">Invoice Price</label>
+    <input type="text" name="price" value="<%= customer.price%>">
+  </div>
+  <div>
+    <label for="date">Purchase Date</label>
+    <input type="text" name="date" value="<%= customer.date%>">
+  </div>
+  <h2>2.Insured Details</h1>
+    <p>Gift case:If the gift receiver is also VIP, enter his/her details below</p>
+  <div>
+    <label for="vipnumber">VIP number</label>
+    <input type="text" name="vipnumber" value="<%= customer.vipnumber%>">
+  </div>
+  <div>
+    <label for="name">Full English Name on HKID</label>
+    <input type="text" name="name" value="<%= customer.name%>">
+  </div>
+  <div>
+    <label for="gender" class="text-light">Gender</label>
+            <select name="gender" id="gender">
+                <option value="MALE" <%= customer.gender === 'MALE' ? 'selected' : '' %>>MALE</option>
+                <option value="FEMALE" <%= customer.gender === 'FEMALE' ? 'selected' : '' %>>FEMALE</option>
+            </select>
+  </div>
+  <div>
+    <label for="dob">Date of Birth</label>
+    <input type="text" name="dob" value="<%= customer.dob%>">
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="text" name="email" value="<%= customer.email%>">
+  </div>
+  <div>
+    <label for="phone">Mobile Number</label>
+    <input type="text" name="phone" value="<%= customer.phone%>">
+  </div>
+  <div>
+    <label for="address">Home Address(optional)</label>
+    <select name="address" id="address">
+      <option value="HK" <%= customer.address === 'HK' ? 'selected' : '' %>>HK</option>
+      <option value="九龍" <%= customer.address === '九龍' ? 'selected' : '' %>>九龍</option>
+    </select>
+    <input type="text" name="address" value="<%= customer.address%>">
+  </div>
+  <h1>3.Upload Photos</h1>
+  <p>Keep photos less than 5GB in JPG/PNG/PDF format</p>
+  <div>
+    <label for="image">Image</label>
+    <td><img
+      src="/uploads/<%= customer.image %>" width="200" class="img-thumbnail" />
+    </td>
+        <input type="file" name="image" value="/uploads/<%= customer.image %>"/>
+    </div>
+    <div>
+    <input type="submit" value="Submit" />
+    </div>
 
 </form>
 <%- include('./layouts/footer') %>

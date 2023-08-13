@@ -1,59 +1,70 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const createHttpError = require('http-errors');
-const { roles } = require('../utils/constants');
 
 const CustomerSchema = new mongoose.Schema({
-  name:{
+  brandname:{
     type: String,
     required: true,
   },
-    email: {
+  modelname:{
+    type: String,
+  },
+  modelcode:{
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+  },
+  serialnumber:{
     type: String,
     required: true,
     lowercase: true,
     unique: true,
   },
-  password: {
+  cardnumber:{
     type: String,
     required: true,
   },
-  role: {
+  price:{
     type: String,
-    enum: [roles.client],
-    default: roles.client,
+    required: true,
+  },
+  date:{
+    type: String,
+    required: true,
+  },
+  vipnumber:{
+    type: String,
+    required: true,
+  },
+  name:{
+    type: String,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+  },
+  dob:{
+    type: String,
+    required: true,
+  },
+  email:{
+    type: String,
+    required: true,
+  },
+  phone:{
+    type: String,
+    required: true,
+  },
+  address:{
+    type: String,
   },
   image:{
-    type: String
-  },
-  startdate:{
-    type: Date,
+    type: String,
+    required: true,
   },
 });
-
-CustomerSchema.pre('save', async function (next) {
-  try {
-    if (this.isNew) {
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(this.password, salt);
-      this.password = hashedPassword;
-      if (this.email === process.env.ADMIN_EMAIL.toLowerCase()) {
-        this.role = roles.admin;
-      }
-    }
-    next();
-  } catch (error) {
-    next(error);
-  }
-});
-
-CustomerSchema.methods.isValidPassword = async function (password) {
-  try {
-    return await bcrypt.compare(password, this.password);
-  } catch (error) {
-    throw createHttpError.InternalServerError(error.message);
-  }
-};
 
 const Customer = mongoose.model('customer', CustomerSchema);
 module.exports = Customer;

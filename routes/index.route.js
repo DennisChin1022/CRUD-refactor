@@ -8,14 +8,12 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-  //get the serial number key in web app
   try {
-    const {serialnumber1}  = req.body;
-    //make a request to ORBITIC blockchain for alias name as serial number
-    const serialnumbers = await axios.get('http://18.138.197.252:801/ORBT?requestType=getAlias&aliasName=' + serialnumber1);
+    const {serialnumber}  = req.body;
+    console.log(req.body)
+    const serialnumbers = await axios.get('http://18.138.197.252:801/ORBT?requestType=getAlias&aliasName=' + serialnumber);
     console.log(serialnumbers.data.aliasName)
-    //comparing if the serial number is valid
-    if (serialnumbers.data.aliasName === serialnumber1) {
+    if (serialnumbers.data.aliasName === req.body.serialnumber) {
       req.flash('warning', 'Serial Number is Valid');
         res.redirect('/');
     }

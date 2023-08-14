@@ -134,49 +134,13 @@ router.post(
 //-------------------------------------------customer--------------------------------------//
 router.get('/customers', async (req, res, next) => {
   try {
-    const search = req.query.search ||"";
-    const customers = await Customer.find({brandname:{$regex:search, $options: "i"}});
+    const customers = await Customer.find();
     // res.send(customers);
     res.render('manage-customers', { customers });
   } catch (error) {
     next(error);
   }
 });
-
-router.get("/customer/:key", async (req,res)=>{
-  let data = await Customer.find(
-      {
-          "$or":[
-              {name:{$regex:req.params.key}},
-              {brand:{$regex:req.params.key}}
-          ]
-      }
-  )
-  res.send(data);
-
-})
-
-router.get("/search", (req,res) =>{
-  const query = request.query.q;
-
-  var sql ='';
-
-  if (sql !='')
-  {
-    sql = `SELECT * FROM customers WHERE customer_name LIKE '%${query}' OR customer_brandname LIKE '%${query}'`;
-  }
-  else{
-    sql = 'SELECT * FROM customers ORDER  BY customer_id ';
-  }
-
-  pool.quert(sql, (error, results) =>
-  {
-    if (error) throw error;
-
-    res.send(results);
-  })
-
-})
 
 router.get('/update-customer/:id', async (req, res, next) => {
   try {

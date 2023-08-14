@@ -156,6 +156,28 @@ router.get("/customer/:key", async (req,res)=>{
 
 })
 
+router.get("/search", (req,res) =>{
+  const query = request.query.q;
+
+  var sql ='';
+
+  if (sql !='')
+  {
+    sql = `SELECT * FROM customers WHERE customer_name LIKE '%${query}' OR customer_brandname LIKE '%${query}'`;
+  }
+  else{
+    sql = 'SELECT * FROM customers ORDER  BY customer_id ';
+  }
+
+  pool.quert(sql, (error, results) =>
+  {
+    if (error) throw error;
+
+    res.send(results);
+  })
+
+})
+
 router.get('/update-customer/:id', async (req, res, next) => {
   try {
     const { id } = req.params;

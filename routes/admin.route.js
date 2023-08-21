@@ -142,6 +142,16 @@ router.get('/customers', async (req, res, next) => {
   }
 });
 
+router.post('/customers', async (req, res, next) => {
+  try {
+    const customers = await Customer.find();
+    // res.send(customers);
+    res.render('manage-customers', { customers });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/update-customer/:id', async (req, res, next) => {
   try {
     const { id } = req.params;

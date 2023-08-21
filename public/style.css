@@ -312,6 +312,17 @@ tbody tr td:first-child {
   margin: 0 .2em;
 }
 
+#livesearch{
+  background-color: gainsboro;
+  border-color: black;
+  border-width: thin;
+  border-style: solid;
+  width: 170px;
+}
+
+.hide{
+  display: none;
+}
 
 @media  only screen and (max-width: 1024px){
   td:not(:first-of-type) {

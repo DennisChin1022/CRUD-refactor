@@ -135,12 +135,11 @@ function ensureRetailer(req, res, next) {
 if (typeof window !== 'undefined') {
   // 👉️ can use document here
   console.log('You are on the browser')
-
   console.log(document.title)
   console.log(document.getElementsByClassName('my-class'));
 } else {
   // 👉️ can't use document here
-  console.log('You are on the server')
+  console.log('You are on the window')
 }
 
 // const search = document.querySelector('.input-group input'),

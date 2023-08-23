@@ -4,6 +4,7 @@
 
 
 <h1>Serial Number verification</h1>
+
 <form action="/" method="post" class="lg-form">
   <div>
     <label for="serialnumber">Serial Number</label>
@@ -13,23 +14,38 @@
     <input type="submit" value="Check" />
   </div>
 </form>
-<section class="table__body">
+<body>
+  <main class="table">
+      <section class="table__header">
+        <h1>Watch Details</h1>
+        </section>
+  <section class="table__body">
   <table>
       <thead >
         <tr>
-            <th>Quantity</th>
-            <th>Account Number</th>
-            <th>Description</th>
+            <th>Serial Number</th>
+            <th>Product Name</th>
+            <th>Sale Price</th>
+            <th>Sale Currency</th>
+            <th>Dealer ID</th>
+            <th>First Purchased On</th>
+            <th>Current Owner</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><%= watchaccount.data.quantityQNT %></td>
-            <td><%= watchaccount.data.numberOfAccounts %></td>
-            <td><%= watchaccount.data.description %></td>
+            <td><%= description[1] %></td>
+            <td><%= description[2] %></td>
+            <td><%= description[3] %></td>
+            <td><%= description[4] %></td>
+            <td><%= description[5] %></td>
+            <td><%= description[6] %></td>
+            <td><%= watchaccount.data.accountRS %></td>
           </tr>
         </tbody>
     </table>
   </section>
+</main>
+</body>
 
 <%- include('./layouts/footer') %>

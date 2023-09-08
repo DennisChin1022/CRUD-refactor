@@ -1,0 +1,27 @@
+<%- include('./layouts/header') %>
+
+<h1 class="title">Welcome to Watch Shop</h1>
+
+
+<h1>Serial Number verification</h1>
+
+<form action="/createasset" method="post" class="lg-form">
+  <div>
+    <label for="serialnumber">Name</label>
+    <input type="text" name="name" id="name" />
+  </div>
+  <div>
+    <label for="description">Description</label>
+    <input type="text" name="description" id="description" />
+    <input type="hidden" name="quantityQNT" id="quantityQNT" value="1" />
+    <input type="hidden" name="decimals" id="decimals" value="0"/>
+    <input type="hidden" name="secretPhrase" id="secretPhrase" value="test" />
+    <input type="hidden" name="feeNQT" id="feeNQT" value="10000000000"/>
+    <input type="hidden" name="deadline" id="deadline" value="100"/>
+  </div>
+  <div>
+    <input type="submit" value="Create Asset" />
+  </div>
+</form>
+
+<%- include('./layouts/footer') %>
